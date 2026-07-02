@@ -47,7 +47,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withCredentials([string(credentialsId: 'Willstiti-sonar-token', variable: 'SONAR_TOKEN')]) {
+                withCredentials([string(credentialsId: 'Willstiti-sonar-token-frontend', variable: 'SONAR_TOKEN')]) {
                     sh '''
                         set -e
 
