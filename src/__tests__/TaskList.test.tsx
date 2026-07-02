@@ -53,7 +53,39 @@ describe('TaskList', () => {
 		expect(screen.getByText('Première tâche')).toBeInTheDocument();
 		expect(screen.getByText('Deuxième tâche')).toBeInTheDocument();
 		expect(screen.getByText('2 tâches')).toBeInTheDocument();
+		expect(screen.getByText('1 terminée')).toBeInTheDocument();
 	});
 
-	// ... TODO: Add more tests
+	it('shows error state', () => {
+		render(
+			<TaskList
+				tasks={[]}
+				loading={false}
+				error="Backend indisponible"
+				onToggle={vi.fn()}
+				onDelete={vi.fn()}
+				onEdit={vi.fn()}
+			/>
+		);
+
+		expect(screen.getByTestId('error')).toBeInTheDocument();
+		expect(screen.getByText('Erreur : Backend indisponible')).toBeInTheDocument();
+	});
+
+	it('shows empty state', () => {
+		render(
+			<TaskList
+				tasks={[]}
+				loading={false}
+				error={null}
+				onToggle={vi.fn()}
+				onDelete={vi.fn()}
+				onEdit={vi.fn()}
+			/>
+		);
+
+		expect(screen.getByTestId('empty')).toBeInTheDocument();
+		expect(screen.getByText('Aucune tâche')).toBeInTheDocument();
+		expect(screen.getByText('Commencez par ajouter votre première tâche !')).toBeInTheDocument();
+	});
 });
